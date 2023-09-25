@@ -112,7 +112,7 @@ class FieldMapper extends Component {
         <h2 class="header">Field Mapper</h2>
         <div class="row">
           <div class="col-7">
-            <h3>Salesforce</h3>
+            <h3>Salesforce Fields</h3>
             {mappings.map((mapping, index) => (
               <div key={index}>
                 <p>{this.state.selectedInput1[index]}</p>
@@ -121,17 +121,17 @@ class FieldMapper extends Component {
                   onChange={(e) => this.handleMappingChange(index, 'left', e.target.value)}>
                   <option value="">Select Field</option>
                     {leftFields.map((field) => (
-                      this.state.addedInputs1.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
+                      this.state.addedInputs1.includes(field) ? <option disabled key={field} value={field} hidden>{field}</option> : <option selected key={field} value={field}>{field}</option>
                     ))}
                 </select>
                 </div>
               ))}
           </div>
           <div class="col-5">
-            <h3 class="col-8">CallHub</h3>
+            <h3 class="col-7">CallHub Custom Fields</h3>
           {mappings.map((mapping, index) => (
           <div key={index}>
-            <p class="col-7">{this.state.selectedInput2[index]}</p>
+            <p class="col-6">{this.state.selectedInput2[index]}</p>
             <table> 
               <td>
               <select class="custom-select2"
@@ -139,7 +139,7 @@ class FieldMapper extends Component {
                 onChange={(e) => this.handleMappingChange(index, 'right', e.target.value)}>
                 <option value="">Select Field</option>
                   {rightFields.map((field) => (
-                    this.state.addedInputs2.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
+                    this.state.addedInputs2.includes(field) ? <option disabled key={field} value={field} hidden>{field}</option> : <option selected key={field} value={field}>{field}</option>
                   ))}
               </select>
               </td>
@@ -152,8 +152,8 @@ class FieldMapper extends Component {
           </div>           
           ))}
         </div>
-          <button class="btn btn-success mb-4 w-3" onClick={this.handleAddMapping}>Add Mapping</button>
-          <button class="btn btn-success" onClick={this.handleSubmit}>Submit</button>
+          <button class="btn ml-4 mb-4 custom-select1 map-btn" onClick={this.handleAddMapping}>Map Another Field</button>
+          <button class="btn submit-btn" onClick={this.handleSubmit}>Submit</button>
           <MappedFieldsTable mappings={mappings}></MappedFieldsTable>
         </div>
       </div>
