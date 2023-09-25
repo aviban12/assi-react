@@ -1,10 +1,12 @@
 .container{
-    margin:auto;
-    margin-bottom: 20%;
+    text-align: center;
 }
 
 .header {
-    margin-left: 40%;
+    text-align: center;
+    width: 100%;
+    background-color: blue;
+    color: white;
 }
 .dropdown1 {
     width: 200px;
@@ -14,11 +16,18 @@
     width: 200px;
     margin-bottom: 12%;
 }
-.custom-select {
+.custom-select1 {
     font-family: Arial;
     height: 40px;
     width: 300px;
-    margin-bottom: 12%;
+    margin-bottom: 5%;
+  }
+
+  .custom-select2 {
+    font-family: Arial;
+    height: 40px;
+    width: 300px;
+    margin-bottom: 10%;
   }
   
   .custom-select select {
@@ -78,5 +87,4 @@
 
 .dlt-btn{
     margin-left: 60%;
-    margin-top: -13%;
 }
