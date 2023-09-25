@@ -10,7 +10,8 @@ class FieldMapper extends Component {
       leftFields: ['First Name', 'Last Name', 'Contact ID', 'Master Record ID ', 'Account ID', 'Salutation', 'Street', 'City', 'State/Provinces', 'Zip/Postal Code', 'End_date', 'Frequency_of_giving', 'Ward'], // Replace with your Salesforce fields
       rightFields: ['First Name', 'Last Name', 'Contact ID', 'Master Record ID ', 'Account ID', 'Salutation', 'Street', 'City', 'State/Provinces', 'Zip/Postal Code', 'End_date', 'Frequency_of_giving', 'Ward'], // Initialize with an empty array for CallHub fields
       mappings: [{}], // Initialize with an empty mapping array
-      addedInputs: [], // This array is being used for disabling the used fields
+      addedInputs1: [], // This array is being used for disabling the used fields
+      addedInputs2: [],
       selectedInput1: {}, // this array is being used for storing left data points 
       selectedInput2: {},// this array is being used for storing right data points
     };
@@ -40,19 +41,18 @@ class FieldMapper extends Component {
     // Clone the current mappings array
     const mappings = [...this.state.mappings];
 
-    console.log(mappings[index].left, mappings[index].right)
+    const leftAddedInput = this.state.addedInputs1;
+    const rightAddedInput = this.state.addedInputs2;
 
-    const addedInput = this.state.addedInputs;
 
-    console.log(addedInput);
+    let leftItemIndex = leftAddedInput.indexOf(mappings[index].left);
+    leftAddedInput.splice(leftItemIndex, 1);
 
-    let leftItemIndex = addedInput.indexOf(mappings[index].left);
-    addedInput.splice(leftItemIndex, 1);
+    let rightItemIndex = rightAddedInput.indexOf(mappings[index].right);
+    rightAddedInput.splice(rightItemIndex, 1);
 
-    let rightItemIndex = addedInput.indexOf(mappings[index].right);
-    addedInput.splice(rightItemIndex, 1);
-
-    this.setState(addedInput);
+    this.setState(leftAddedInput);
+    this.setState(rightAddedInput);
 
     // Remove the mapping at the specified index
     mappings.splice(index, 1);
@@ -79,14 +79,15 @@ class FieldMapper extends Component {
           let selected2 = this.state.selectedInput2[iterator];
           if(selected1 != '' && selected2 != '' && this.state.selectedInput1.index == this.state.selectedInput2.index) {
             this.state.mappings.push({left: selected1, right: selected2});
-            if(!this.state.addedInputs.includes(selected1)) {
-              this.state.addedInputs.push(selected1);
-              this.state.addedInputs.push(selected2);
-              console.log(this.state.addedInputs);
-              this.setState(this.state.addedInputs);
-              this.setState(this.state.mappings);
+            if(!this.state.addedInputs1.includes(selected1)) {
+              this.state.addedInputs1.push(selected1);
             }
-            this.handleAddMapping();
+            if(!this.state.addedInputs2.includes(selected2)) {
+                this.state.addedInputs2.push(selected2);
+              }
+            this.setState(this.state.addedInputs1);
+            this.setState(this.state.addedInputs2);
+            this.setState(this.state.mappings);
           }
           else {
             console.log('Index Count Mismatched');
@@ -96,6 +97,7 @@ class FieldMapper extends Component {
           this.setState(this.state.selectedInput1);
           this.setState(this.state.selectedInput2);
         }
+        this.handleAddMapping();
       }
       else {
         alert('Please select both the field in each row');
@@ -119,7 +121,7 @@ class FieldMapper extends Component {
                   onChange={(e) => this.handleMappingChange(index, 'left', e.target.value)}>
                   <option value="">Select Field</option>
                     {leftFields.map((field) => (
-                      this.state.addedInputs.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
+                      this.state.addedInputs1.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
                     ))}
                 </select>
                 </div>
@@ -137,7 +139,7 @@ class FieldMapper extends Component {
                 onChange={(e) => this.handleMappingChange(index, 'right', e.target.value)}>
                 <option value="">Select Field</option>
                   {rightFields.map((field) => (
-                    this.state.addedInputs.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
+                    this.state.addedInputs2.includes(field) ? <option disabled key={field} value={field}>{field}</option> : <option selected key={field} value={field}>{field}</option>
                   ))}
               </select>
               </td>
